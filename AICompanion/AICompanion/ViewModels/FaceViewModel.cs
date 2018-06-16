@@ -128,7 +128,7 @@ namespace AICompanion.ViewModels
             try
             {
                 var personGroups = await faceService.PersonGroup.ListAsync();
-                var identifyPersonGroupId = (personGroups.FirstOrDefault(p => p.Name.ToLowerInvariant() == "see4me" || p.UserData.ToLowerInvariant() == "see4me" || p.Name.ToLowerInvariant() == "_default" || p.UserData.ToLowerInvariant() == "_default") ?? personGroups.FirstOrDefault())?.PersonGroupId;
+                var identifyPersonGroupId = (personGroups.FirstOrDefault(p => p.Name.ToLowerInvariant() == "_default" || p.UserData.ToLowerInvariant() == "_default") ?? personGroups.FirstOrDefault())?.PersonGroupId;
 
                 return identifyPersonGroupId;
             }

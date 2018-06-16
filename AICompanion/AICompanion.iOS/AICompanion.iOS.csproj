@@ -184,7 +184,4 @@
   <ItemGroup>
     <BundleResource Include="Resources\Images\photo_library.png" />
   </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\Images\open_in_browser.png" />
-  </ItemGroup>
 </Project>

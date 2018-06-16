@@ -103,6 +103,12 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AppBar\TakePhoto.png">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Assets\AppBar\PickPhoto.png">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />

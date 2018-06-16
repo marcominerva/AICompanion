@@ -10,7 +10,7 @@ namespace AICompanion.Common
     {
         public const string VisionSubscriptionKey = "";
         public const string FaceSubscriptionKey = "";
-        public const string CustomVisionTrainingKey = "";
+        public const string CustomVisionPredictionKey = "";
         public const string CustomVisionProjectId = "";
     }
 }
