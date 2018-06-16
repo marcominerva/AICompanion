@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="AICompanion.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Common/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <vm:ViewModelLocator xmlns:vm="clr-namespace:AICompanion.ViewModels" x:Key="Locator" />
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>

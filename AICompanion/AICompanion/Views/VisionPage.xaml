@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<common:ContentPageBase
+    x:Class="AICompanion.Views.VisionPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:common="clr-namespace:AICompanion.Common"
+    xmlns:local="clr-namespace:AICompanion"
+    Title="Vision"
+    BindingContext="{Binding Source={StaticResource Locator}, Path=VisionViewModel}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding TakePhotoCommand}"
+            Order="Primary"
+            Priority="0"
+            Text="Take photo">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android">ic_action_photo_camera.png</On>
+                    <On Platform="iOS">Images/photo_camera.png</On>
+                    <On Platform="UWP">Assets/AppBar/TakePhoto.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding PickPhotoCommand}"
+            Order="Primary"
+            Priority="1"
+            Text="Pick photo">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android">ic_action_photo_library.png</On>
+                    <On Platform="iOS">Images/photo_library.png</On>
+                    <On Platform="UWP">Assets/AppBar/PickPhoto.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding SettingsCommand}"
+            Order="Secondary"
+            Priority="0"
+            Text="Settings..." />
+    </ContentPage.ToolbarItems>
+
+    <Grid Style="{StaticResource MasterGridStyle}">
+        <ScrollView Style="{StaticResource ContentGridStyle}" VerticalOptions="Start">
+            <StackLayout>
+                <Image
+                    Margin="12"
+                    Aspect="AspectFit"
+                    Source="{Binding ImagePath}"
+                    VerticalOptions="Start" />
+                <Label Style="{StaticResource DescriptionLabelStyle}" Text="{Binding Description}" />
+            </StackLayout>
+        </ScrollView>
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+    </Grid>
+</common:ContentPageBase>

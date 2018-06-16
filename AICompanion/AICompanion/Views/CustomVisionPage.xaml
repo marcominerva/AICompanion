@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<common:ContentPageBase
+    x:Class="AICompanion.Views.CustomVisionPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:common="clr-namespace:AICompanion.Common"
+    xmlns:local="clr-namespace:AICompanion"
+    Title="Custom Vision"
+    BindingContext="{Binding Source={StaticResource Locator}, Path=CustomVisionViewModel}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding TakePhotoCommand}"
+            Order="Primary"
+            Priority="0"
+            Text="Take photo">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android">ic_action_photo_camera.png</On>
+                    <On Platform="iOS">Images/photo_camera.png</On>
+                    <On Platform="UWP">Assets/AppBar/TakePhoto.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding PickPhotoCommand}"
+            Order="Primary"
+            Priority="1"
+            Text="Pick photo">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android">ic_action_photo_library.png</On>
+                    <On Platform="iOS">Images/photo_library.png</On>
+                    <On Platform="UWP">Assets/AppBar/PickPhoto.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding SettingsCommand}"
+            Order="Secondary"
+            Priority="0"
+            Text="Settings..." />
+    </ContentPage.ToolbarItems>
+
+    <Grid Style="{StaticResource MasterGridStyle}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackLayout Grid.Column="0" Margin="5,10,5,5">
+            <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                <Label
+                    Style="{StaticResource SwitchLabelStyle}"
+                    Text="Online"
+                    VerticalOptions="Center" />
+                <Switch IsToggled="{Binding IsOffline, Mode=TwoWay}" />
+                <Label
+                    Style="{StaticResource SwitchLabelStyle}"
+                    Text="Offline"
+                    VerticalOptions="Center" />
+            </StackLayout>
+            <Image
+                Margin="12"
+                Aspect="AspectFit"
+                Source="{Binding ImagePath}"
+                VerticalOptions="Start" />
+        </StackLayout>
+
+        <ListView
+            Grid.Column="1"
+            Margin="0,1,12,12"
+            CachingStrategy="RecycleElementAndDataTemplate"
+            ItemsSource="{Binding Predictions}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label
+                            FontSize="Medium"
+                            Text="{Binding .}"
+                            VerticalOptions="Center" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ActivityIndicator
+            Grid.ColumnSpan="2"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}">
+            <ActivityIndicator.HorizontalOptions>
+                <OnPlatform x:TypeArguments="LayoutOptions">
+                    <On Platform="Android, iOS">CenterAndExpand</On>
+                    <On Platform="UWP">FillAndExpand</On>
+                </OnPlatform>
+            </ActivityIndicator.HorizontalOptions>
+            <ActivityIndicator.VerticalOptions>
+                <OnPlatform x:TypeArguments="LayoutOptions">
+                    <On Platform="Android, iOS">CenterAndExpand</On>
+                    <On Platform="UWP">FillAndExpand</On>
+                </OnPlatform>
+            </ActivityIndicator.VerticalOptions>
+        </ActivityIndicator>
+    </Grid>
+</common:ContentPageBase>
