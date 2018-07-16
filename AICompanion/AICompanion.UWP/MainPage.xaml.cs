@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Plugin.CustomVisionEngine;
+using Plugin.CustomVisionEngine.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +24,8 @@ namespace AICompanion.UWP
             this.InitializeComponent();
 
             LoadApplication(new AICompanion.App());
+
+            var task = CrossOfflineClassifier.Current.InitializeAsync(ModelType.General, "ms-appx:///Assets/Models/Computer.onnx", "controller", "keyboard", "laptop", "monitor", "mouse");
         }
     }
 }

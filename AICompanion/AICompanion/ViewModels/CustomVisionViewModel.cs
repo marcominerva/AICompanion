@@ -85,7 +85,7 @@ namespace AICompanion.ViewModels
                     else
                     {
                         var classifier = CrossOnlineClassifier.Current;
-                        predictionsRecognized = await classifier.RecognizeAsync(SettingsService.CustomVisionPredictionKey, Guid.Parse(SettingsService.CustomVisionProjectId), file.GetStream());
+                        predictionsRecognized = await classifier.RecognizeAsync(SettingsService.CustomVisionPredictionKey, Guid.Parse(SettingsService.CustomVisionProjectId), file.GetStream(), null);
                     }
 
                     Predictions = predictionsRecognized.Select(p => $"{p.Tag}: {p.Probability:P1}");

@@ -28,25 +28,25 @@ namespace AICompanion.Services
 
         public string VisionSubscriptionKey
         {
-            get => settings.GetValueOrDefault(VISION_SUBSCRIPTION_KEY, ServiceKeys.VisionSubscriptionKey);
+            get => settings.GetValueOrDefault(VISION_SUBSCRIPTION_KEY, null);
             set => settings.AddOrUpdateValue(VISION_SUBSCRIPTION_KEY, value);
         }
 
         public string FaceSubscriptionKey
         {
-            get => settings.GetValueOrDefault(FACE_SUBSCRIPTION_KEY, ServiceKeys.FaceSubscriptionKey);
+            get => settings.GetValueOrDefault(FACE_SUBSCRIPTION_KEY, null);
             set => settings.AddOrUpdateValue(FACE_SUBSCRIPTION_KEY, value);
         }
 
         public string CustomVisionPredictionKey
         {
-            get => settings.GetValueOrDefault(CUSTOM_VISION_PREDICTION_KEY, ServiceKeys.CustomVisionPredictionKey);
+            get => settings.GetValueOrDefault(CUSTOM_VISION_PREDICTION_KEY, null);
             set => settings.AddOrUpdateValue(CUSTOM_VISION_PREDICTION_KEY, value);
         }
 
         public string CustomVisionProjectId
         {
-            get => settings.GetValueOrDefault(CUSTOM_VISION_PROJECT_ID, ServiceKeys.CustomVisionProjectId);
+            get => settings.GetValueOrDefault(CUSTOM_VISION_PROJECT_ID, null);
             set => settings.AddOrUpdateValue(CUSTOM_VISION_PROJECT_ID, value);
         }
     }
