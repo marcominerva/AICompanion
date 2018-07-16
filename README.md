@@ -1,2 +1,2 @@
-# AICompanion
-A sample showcasing the use of Cognitive Services in apps
+# AI Companion
+A sample app showcasing the use of Cognitive Services
