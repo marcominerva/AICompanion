@@ -70,9 +70,9 @@ namespace AICompanion.ViewModels
                     Description = null;
                     ImagePath = file.Path;
 
-                    var client = new ComputerVisionAPI(new ApiKeyServiceClientCredentials(SettingsService.VisionSubscriptionKey))
+                    var client = new ComputerVisionClient(new ApiKeyServiceClientCredentials(SettingsService.VisionSubscriptionKey))
                     {
-                        AzureRegion = AzureRegions.Westeurope
+                        Endpoint = "https://westeurope.api.cognitive.microsoft.com"
                     };
 
                     var result = await client.DescribeImageInStreamAsync(file.GetStream());

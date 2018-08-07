@@ -70,9 +70,9 @@ namespace AICompanion.ViewModels
                     Description = null;
                     ImagePath = file.Path;
 
-                    var client = new FaceAPI(new ApiKeyServiceClientCredentials(SettingsService.FaceSubscriptionKey))
+                    var client = new FaceClient(new ApiKeyServiceClientCredentials(SettingsService.FaceSubscriptionKey))
                     {
-                        AzureRegion = AzureRegions.Westeurope
+                         Endpoint = "https://westeurope.api.cognitive.microsoft.com"
                     };
 
                     var faces = await client.Face.DetectWithStreamAsync(file.GetStream(), returnFaceAttributes: new List<FaceAttributeType> { FaceAttributeType.Gender, FaceAttributeType.Age, FaceAttributeType.Emotion });
@@ -86,7 +86,7 @@ namespace AICompanion.ViewModels
                         if (!string.IsNullOrWhiteSpace(identifyPersonGroupId))
                         {
                             var faceIds = faces.Select(face => face.FaceId).Cast<Guid>().ToList();
-                            faceIdentificationResult = await client.Face.IdentifyAsync(identifyPersonGroupId, faceIds);
+                            faceIdentificationResult = await client.Face.IdentifyAsync(faceIds, identifyPersonGroupId);
                         }
 
                         var result = new StringBuilder();
@@ -123,11 +123,11 @@ namespace AICompanion.ViewModels
             }
         }
 
-        private async Task<string> GetPersonGroupAsync(FaceAPI faceService)
+        private async Task<string> GetPersonGroupAsync(FaceClient faceClient)
         {
             try
             {
-                var personGroups = await faceService.PersonGroup.ListAsync();
+                var personGroups = await faceClient.PersonGroup.ListAsync();
                 var identifyPersonGroupId = (personGroups.FirstOrDefault(p => p.Name.ToLowerInvariant() == "_default" || p.UserData.ToLowerInvariant() == "_default") ?? personGroups.FirstOrDefault())?.PersonGroupId;
 
                 return identifyPersonGroupId;
