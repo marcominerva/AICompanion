@@ -25,7 +25,7 @@ namespace AICompanion.UWP
 
             LoadApplication(new AICompanion.App());
 
-            var task = CrossOfflineClassifier.Current.InitializeAsync(ModelType.General, "ms-appx:///Assets/Models/Computer.onnx", "controller", "keyboard", "laptop", "monitor", "mouse");
+            var task = CrossOfflineClassifier.Current.InitializeAsync(ModelType.General, "ms-appx:///Assets/Models/Computer.onnx");
         }
     }
 }
