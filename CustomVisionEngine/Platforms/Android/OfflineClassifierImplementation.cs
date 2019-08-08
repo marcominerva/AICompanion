@@ -13,13 +13,12 @@ namespace Plugin.CustomVisionEngine
 {
     public class OfflineClassifierImplementation : IOfflineClassifier
     {
-        private const int INPUT_WIDTH = 227;
-        private const int INPUT_HEIGHT = 227;
         private const string INPUT_NAME = "Placeholder";
         private const string OUTPUT_NAME = "loss";
 
-        private List<String> labels;
+        private List<string> labels;
         private TensorFlowInferenceInterface inferenceInterface;
+        private int inputSize;
 
         public async Task InitializeAsync(ModelType modelType, params string[] parameters)
         {
@@ -36,11 +35,12 @@ namespace Plugin.CustomVisionEngine
             }
 
             inferenceInterface = new TensorFlowInferenceInterface(assets, modelFile);
+            inputSize = (int)inferenceInterface.GraphOperation(INPUT_NAME).Output(0).Shape().Size(1);
         }
 
         private IEnumerable<Recognition> Recognize(Bitmap bitmap)
         {
-            var argbPixelArray = new int[INPUT_WIDTH * INPUT_HEIGHT];
+            var argbPixelArray = new int[inputSize * inputSize];
             var normalizedPixelComponents = new float[argbPixelArray.Length * 3];
 
             bitmap.GetPixels(argbPixelArray, 0, bitmap.Width, 0, 0, bitmap.Width, bitmap.Height);
@@ -54,7 +54,7 @@ namespace Plugin.CustomVisionEngine
             }
 
             // Copy the input data into TF
-            inferenceInterface.Feed(INPUT_NAME, normalizedPixelComponents, 1, INPUT_WIDTH, INPUT_HEIGHT, 3);
+            inferenceInterface.Feed(INPUT_NAME, normalizedPixelComponents, 1, inputSize, inputSize, 3);
 
             // Run the inference
             inferenceInterface.Run(new[] { OUTPUT_NAME });
@@ -83,9 +83,9 @@ namespace Plugin.CustomVisionEngine
             IEnumerable<Recognition> results = null;
             var bitmap = await BitmapFactory.DecodeStreamAsync(image);
 
-            if (bitmap.Height != INPUT_HEIGHT || bitmap.Width != INPUT_WIDTH)
+            if (bitmap.Height != inputSize || bitmap.Width != inputSize)
             {
-                using (var croppedBitmap = await ImageUtilities.ResizeAndCropAsync(image, bitmap, INPUT_WIDTH, INPUT_HEIGHT))
+                using (var croppedBitmap = await ImageUtilities.ResizeAndCropAsync(image, bitmap, inputSize, inputSize))
                 {
                     results = await Task.Run(() => Recognize(croppedBitmap));
                     croppedBitmap.Recycle();
