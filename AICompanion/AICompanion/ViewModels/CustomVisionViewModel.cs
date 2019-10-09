@@ -1,19 +1,12 @@
 ﻿using AICompanion.Common;
 using AICompanion.Services;
+using Plugin.CustomVisionEngine;
+using Plugin.CustomVisionEngine.Models;
 using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
-using Plugin.CustomVisionEngine;
-using Plugin.CustomVisionEngine.Models;
-using GalaSoft.MvvmLight.Command;
 
 namespace AICompanion.ViewModels
 {
@@ -85,7 +78,7 @@ namespace AICompanion.ViewModels
                     else
                     {
                         var classifier = CrossOnlineClassifier.Current;
-                        predictionsRecognized = await classifier.RecognizeAsync(SettingsService.CustomVisionPredictionKey, Guid.Parse(SettingsService.CustomVisionProjectId), file.GetStream(), null);
+                        predictionsRecognized = await classifier.RecognizeAsync(SettingsService.CustomVisionRegion, SettingsService.CustomVisionPredictionKey, SettingsService.CustomVisionProjectName, Guid.Parse(SettingsService.CustomVisionIterationId), file.GetStream());
                     }
 
                     Predictions = predictionsRecognized.Select(p => $"{p.Tag}: {p.Probability:P1}");

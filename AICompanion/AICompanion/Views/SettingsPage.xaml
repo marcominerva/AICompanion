@@ -14,26 +14,53 @@
                 <Label
                     Margin="0,10,0,0"
                     Style="{StaticResource CaptionLabelStyle}"
-                    Text="Vision Subscription Key" />
+                    Text="Vision Region" />
                 <Entry
-                    Placeholder="Insert value"
+                    Placeholder="westeurope, southcentralus, etc."
+                    Style="{StaticResource SettingsEntryStyle}"
+                    Text="{Binding VisionRegion}" />
+
+                <Label Style="{StaticResource CaptionLabelStyle}" Text="Vision Subscription Key" />
+                <Entry
+                    Placeholder="Insert the Subscription Key for Vision Service"
                     Style="{StaticResource SettingsEntryStyle}"
                     Text="{Binding VisionSubscriptionKey}" />
+
+                <Label Style="{StaticResource CaptionLabelStyle}" Text="Face Region" />
+                <Entry
+                    Placeholder="westeurope, southcentralus, etc."
+                    Style="{StaticResource SettingsEntryStyle}"
+                    Text="{Binding FaceRegion}" />
+
                 <Label Style="{StaticResource CaptionLabelStyle}" Text="Face Subscription Key" />
                 <Entry
-                    Placeholder="Insert value"
+                    Placeholder="Insert the Subscription Key for Vision Service"
                     Style="{StaticResource SettingsEntryStyle}"
                     Text="{Binding FaceSubscriptionKey}" />
+
+                <Label Style="{StaticResource CaptionLabelStyle}" Text="Custom Vision Region" />
+                <Entry
+                    Placeholder="westeurope, southcentralus, etc."
+                    Style="{StaticResource SettingsEntryStyle}"
+                    Text="{Binding CustomVisionRegion}" />
+
+                <Label Style="{StaticResource CaptionLabelStyle}" Text="Custom Vision Project Name" />
+                <Entry
+                    Placeholder="Insert the name of the Custom Vision Project"
+                    Style="{StaticResource SettingsEntryStyle}"
+                    Text="{Binding CustomVisionProjectName}" />
+
                 <Label Style="{StaticResource CaptionLabelStyle}" Text="Custom Vision Prediction Key" />
                 <Entry
-                    Placeholder="Insert value"
+                    Placeholder="Insert the Prediction Key for Custom Vision Service"
                     Style="{StaticResource SettingsEntryStyle}"
                     Text="{Binding CustomVisionPredictionKey}" />
-                <Label Style="{StaticResource CaptionLabelStyle}" Text="Custom Vision Project Id" />
+
+                <Label Style="{StaticResource CaptionLabelStyle}" Text="Custom Vision Iteration Id" />
                 <Entry
-                    Placeholder="Insert value"
+                    Placeholder="Insert the Iteration Id of the Custom Vision Project"
                     Style="{StaticResource SettingsEntryStyle}"
-                    Text="{Binding CustomVisionProjectId}" />
+                    Text="{Binding CustomVisionIterationId}" />
             </StackLayout>
         </ScrollView>
     </Grid>

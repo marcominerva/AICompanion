@@ -1,21 +1,13 @@
 ﻿using AICompanion.Common;
 using AICompanion.Services;
+using Microsoft.Azure.CognitiveServices.Vision.Face;
+using Microsoft.Azure.CognitiveServices.Vision.Face.Models;
 using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
-using Plugin.CustomVisionEngine;
-using Plugin.CustomVisionEngine.Models;
-using GalaSoft.MvvmLight.Command;
-using Microsoft.Azure.CognitiveServices.Vision.Face;
-using Microsoft.Azure.CognitiveServices.Vision.Face.Models;
 
 namespace AICompanion.ViewModels
 {
@@ -72,7 +64,7 @@ namespace AICompanion.ViewModels
 
                     var client = new FaceClient(new ApiKeyServiceClientCredentials(SettingsService.FaceSubscriptionKey))
                     {
-                         Endpoint = "https://westeurope.api.cognitive.microsoft.com"
+                        Endpoint = $"https://{SettingsService.FaceRegion}.api.cognitive.microsoft.com"
                     };
 
                     var faces = await client.Face.DetectWithStreamAsync(file.GetStream(), returnFaceAttributes: new List<FaceAttributeType> { FaceAttributeType.Gender, FaceAttributeType.Age, FaceAttributeType.Emotion });
