@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Android.Graphics;
+﻿using Android.Graphics;
 using Org.Tensorflow.Contrib.Android;
 using Plugin.CustomVisionEngine.Models;
 using Plugin.CustomVisionEngine.Platforms.Android;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Plugin.CustomVisionEngine
 {
@@ -27,12 +26,10 @@ namespace Plugin.CustomVisionEngine
             var labelFile = parameters[1];
 
             labels = new List<string>();
-            using (var sr = new StreamReader(assets.Open(labelFile)))
-            {
-                var content = await sr.ReadToEndAsync();
-                var labelStrings = content.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).Select(e => e.TrimEnd('\r'));
-                labels.AddRange(labelStrings);
-            }
+            using var sr = new StreamReader(assets.Open(labelFile));
+            var content = await sr.ReadToEndAsync();
+            var labelStrings = content.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).Select(e => e.TrimEnd('\r'));
+            labels.AddRange(labelStrings);
 
             inferenceInterface = new TensorFlowInferenceInterface(assets, modelFile);
             inputSize = (int)inferenceInterface.GraphOperation(INPUT_NAME).Output(0).Shape().Size(1);
@@ -85,11 +82,9 @@ namespace Plugin.CustomVisionEngine
 
             if (bitmap.Height != inputSize || bitmap.Width != inputSize)
             {
-                using (var croppedBitmap = await ImageUtilities.ResizeAndCropAsync(image, bitmap, inputSize, inputSize))
-                {
-                    results = await Task.Run(() => Recognize(croppedBitmap));
-                    croppedBitmap.Recycle();
-                }
+                using var croppedBitmap = await ImageUtilities.ResizeAndCropAsync(image, bitmap, inputSize, inputSize);
+                results = await Task.Run(() => Recognize(croppedBitmap));
+                croppedBitmap.Recycle();
             }
             else
             {

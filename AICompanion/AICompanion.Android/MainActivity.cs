@@ -1,15 +1,10 @@
-﻿using System;
+﻿using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
-using Acr.UserDialogs;
 using Plugin.CustomVisionEngine;
 using Plugin.CustomVisionEngine.Models;
 using Plugin.Permissions;
-using Plugin.CurrentActivity;
 
 namespace AICompanion.Droid
 {
@@ -29,7 +24,7 @@ namespace AICompanion.Droid
             UserDialogs.Init(this);
             LoadApplication(new App());
 
-            var task = CrossOfflineClassifier.Current.InitializeAsync(ModelType.General, "model.pb", "labels.txt");
+            _ = CrossOfflineClassifier.Current.InitializeAsync(ModelType.General, "model.pb", "labels.txt");
         }
 
         protected override void OnPause()
